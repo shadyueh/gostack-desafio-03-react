@@ -26,7 +26,14 @@ function App() {
   }
 
   async function handleRemoveRepository(id) {
-    // TODO
+    const response = await api.delete(`/repositories/${id}`);
+    console.log(response);
+
+    if (response.status===204) {
+      const refreshList = repositories.filter(repository => (repository.id!==id));
+      setRepositories(refreshList);
+    }
+
   }
 
   return (
@@ -37,7 +44,7 @@ function App() {
             <li key={repository.id}>
               {repository.title}
 
-              <button onClick={() => handleRemoveRepository(1)}>
+              <button onClick={() => handleRemoveRepository(repository.id)}>
                 Remover
               </button>
             </li>
