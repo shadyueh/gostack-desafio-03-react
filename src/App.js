@@ -15,7 +15,14 @@ function App() {
   }, [] );
 
   async function handleAddRepository() {
-    // TODO
+    const response = await api.post('/repositories',{
+      title:`Novo Repo ${Date.now()}`,
+      owner: 'Diego Fernandes'
+    });
+
+    const repository = response.data;
+
+    setRepositories([...repositories,repository]);
   }
 
   async function handleRemoveRepository(id) {
